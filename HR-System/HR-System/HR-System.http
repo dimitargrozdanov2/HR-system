@@ -1,0 +1,11 @@
+@HR_System_HostAddress = http://localhost:5103
+
+GET {{HR_System_HostAddress}}/todos/
+Accept: application/json
+
+###
+
+GET {{HR_System_HostAddress}}/todos/1
+Accept: application/json
+
+###
