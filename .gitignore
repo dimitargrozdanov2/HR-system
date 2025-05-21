@@ -1,0 +1,69 @@
+# Build results
+bin/
+obj/
+[Ll]og/
+*.log
+
+# VS temporary files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider and VS Code settings
+.idea/
+.vscode/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# User-specific files
+*.swp
+*.DS_Store
+Thumbs.db
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+# Optional: if using PackageReference (not packages folder), can keep above commented out
+
+# Web output
+wwwroot/lib/
+node_modules/
+dist/
+bower_components/
+
+# Publish output
+*.publishsettings
+
+# Dotnet CLI
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Test Results
+TestResults/
+*.coverage
+*.coveragexml
+
+# Entity Framework Migrations metadata
+Migrations/*.Designer.cs
+Migrations/*.resx
+
+# Global JSON settings
+global.json
+
+# JetBrains Rider
+*.sln.iml
+
+# Local secrets (you should not commit these)
+secrets.json
+
+# Windows junk
+desktop.ini
+ehthumbs.db
+
+# OS-generated files
+.DS_Store
