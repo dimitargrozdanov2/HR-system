@@ -1,5 +1,6 @@
 # HR system
 This HR system is used to manage:
+
 • Employees
 
 • Salaries
