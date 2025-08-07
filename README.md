@@ -33,5 +33,6 @@ Each document is around 5MB. A total of 51MB per employee.
 The Service Level Agreement says it is not critical to have downtime.
 
 # Architecture diagram
-<img width="2648" height="2760" alt="image" src="https://github.com/user-attachments/assets/44044d3b-8efb-492f-a5e5-bca01549592a" />
+<img width="2804" height="2760" alt="image" src="https://github.com/user-attachments/assets/d5127f41-2012-4a4d-8dff-695202cd9e68" />
+
 
