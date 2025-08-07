@@ -33,6 +33,31 @@ Each document is around 5MB. A total of 51MB per employee.
 The Service Level Agreement says it is not critical to have downtime.
 
 # Architecture diagram
-<img width="2804" height="2760" alt="image" src="https://github.com/user-attachments/assets/d5127f41-2012-4a4d-8dff-695202cd9e68" />
+<img width="2804" height="3000" alt="image" src="https://github.com/user-attachments/assets/54c73f2f-ac1c-470e-abf6-5d77ae297c19" />
+
+# Tech stack
+Technology stack would be .NET and SQL Server and React.
+
+# Services and module architecture explanation
+## Logging Service
+Logging service is a critical service that will output errors from all services to a database.
+
+Logging will be a background services that runs on a schedule. Messages will be processed and validated from an asynchronous queue.  
+Then they will be recorded in a database. The messages importance will be from Low to Critical.
+
+For this service a classic 3-layer architecture will be used:
+UI Layer -> Business Logic - Data Access 
+
+A good practice is to have 3 replicas of this critical service, however, as it is a demo project, I would go for 2 instances using Active-Passive architectural pattern.
+
+A Polly library is also used for exceptions with a maximum retry count of 3.
+
+Dependancy Injection is used to promote loose coupling and as EF Core is used as an ORM. EF already uses Repository and UOW patterns, so those will not be implemented.
+
+## View Service
+View service serves static files such as HTML, CSS and JS and has no business logic.
+
+To tackle redundancy, a load balancer is introduced to balance two view service instances.
+
 
 
