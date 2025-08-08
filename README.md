@@ -20,11 +20,16 @@ This HR system is used to manage:
 • Performs CRUD operations on the employees.
 
 • Manages salaries:
+
 • Allows the manager to ask for an employee’s salary
 change.
+
 • Allows the HR manager to approve or reject a request.
+
 • Manages vacation days.
+
 • Manages promotions & bonuses.
+
 • Uses an external payment system.
 
 # System usage
@@ -43,7 +48,7 @@ Each document is around 5MB. A total of 51MB per employee.
 The Service Level Agreement says it is not critical to have downtime.
 
 # Architecture diagram
-<img width="2844" height="3000" alt="image" src="https://github.com/user-attachments/assets/a0f988b9-d463-48d4-9798-8726db40c409" />
+<img width="2844" height="3232" alt="image" src="https://github.com/user-attachments/assets/3d2837b7-b374-48f4-a088-7185669f2973" />
 
 # Tech stack
 Technology stack would be .NET and SQL Server and React.
@@ -118,4 +123,51 @@ All exceptions will be logged and passed to the Logging service:
 * Data exceptions will log the exception and the query.
 
 As before a redundancy will be achived by 2 pods with one load balancer. 
+
+## Salary Service
+Salary service can create or delete a request to change an employee's salary by his direct manager. The request can be approved or rejected by the HR manager.
+
+Two roles should be created - one for a manager, and another for a HR manager.
+
+Salary service will have the following functionality:
+
+* Get all salary requests
+
+* Create a salary request
+
+* Remove a salary request
+
+* Approve a salary request
+
+* Reject a salary request
+
+The following APIs are described, along with their status code and a short description:
+
+* GET api/v1/salaryRequests - 200, 401 get all salary requests
+
+* POST /api/v1/salaryRequests 201, 400, 401  -> create a salary request
+
+* DELETE /api/v1/salaryRequests/{id} 200, 400, 401, 404 -> remove a salary request(soft delete)
+
+* PUT /api/v1/salaryRequests/{id}?approve=yes 200, 400, 401, 404  -> one salary request for both approve and reject. The bool "approved" will be nullable in the database and it will be used in get all.
+
+HR request will be kept in a separate table. Obviously salaries, would have an updated by column which would list the id of the manager.
+
+View Service -> BL layer -> Data store 
+
+For redundancy again 2 pods with one load balancer.
+
+## Vacation Service
+Vacation service allows employees to manage their vacation days and allow HR representative to set available vacation days for employees.
+
+* Get all vacations
+  
+* Create a vacation
+
+* Remove a vacation
+
+* Set available days for vacation
+
+* Remove available days for vacation
+
 
