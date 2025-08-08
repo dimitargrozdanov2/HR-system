@@ -47,8 +47,13 @@ Each document is around 5MB. A total of 51MB per employee.
 # SLA 
 The Service Level Agreement says it is not critical to have downtime.
 
-# Architecture diagram
-<img width="2844" height="3232" alt="image" src="https://github.com/user-attachments/assets/3d2837b7-b374-48f4-a088-7185669f2973" />
+# Architecture diagrams
+
+## Logical Diagram
+<img width="2848" height="3272" alt="image" src="https://github.com/user-attachments/assets/9f7f4304-2d92-4a9f-818a-81da9095ec40" />
+
+## Technical Diagram
+<img width="708" height="408" alt="image" src="https://github.com/user-attachments/assets/205fda07-b399-43a3-bdc5-81b81300427c" />
 
 # Tech stack
 Technology stack would be .NET and SQL Server and React.
@@ -61,7 +66,7 @@ Logging will be a background services that runs on a schedule. Messages will be 
 Then they will be recorded in a database. 
 
 For this service a classic 3-layer architecture will be used:
-UI Layer -> Business Logic - Data Access 
+Queue Polling -> Business Logic - Data Access 
 
 A good practice is to have 3 replicas of this critical service, however, as it is a demo project, I would go for 2 instances using Active-Passive architectural pattern.
 
@@ -169,5 +174,61 @@ Vacation service allows employees to manage their vacation days and allow HR rep
 * Set available days for vacation
 
 * Remove available days for vacation
+
+The following APIs are described, along with their status code and a short description:
+
+* GET /api/v1/employees/{id}/vacations - 200, 401 get all vacations
+
+* POST /api/v1/employees/{id}/vacations 201, 400, 401  -> create a vacation
+
+* DELETE /api/v1/employees/{id}/vacations 200, 400, 401, 404 -> remove a vacation(soft delete)
+
+* POST /api/v1/vacations 200, 400, 401, 404  -> create a vacation request that takes parameters - from date to date
+
+* DELETE /api/v1/vacations/{id} 200,400, 401, 404 -> delete a vacation request (soft delete)
+
+View Service -> BL layer -> Data store 
+
+For redundancy again 2 pods with one load balancer.
+
+## External Payment Service
+External Payment Service queries the database for a salary data once a month and sends it to the external payment system.
+
+Background scheduled job with Quartz -> BL -> Data store
+
+We will use the same Active - Passive architectural pattern as in the Logging Service.
+
+We don't need any caching and the exception handling strategy should be the same as above.
+
+## Asynchronous Queue
+The role of the queue is to process errors, validate them and pass them to the Logging service.
+
+There are two options as technologies:
+• RabbitMQ
+
+• Apache Kafka
+
+Rabbit is a general purpose message-broker engine that is easy to setup and easy to use. Apache kafka is a stream processing platform that is perfect for high load.
+We will choose RabbitMQ.
+
+For redundancy we can mirror and enable more than one queue simultaneously. As it is complex to setup and our queue does not serve a crucial data role, in offline scenarions,
+we can log that the queue is offline, as we will not have the full log information. 
+
+An optional thing to do is to implement a Dead Letter Queue.
+
+# Infrastructure 
+
+• CI/CD - Jenkins
+
+• Containerization - Docker
+
+• Orchestration - Kubernetes
+
+• Environment infrastructure - data centers
+
+
+
+
+
 
 
