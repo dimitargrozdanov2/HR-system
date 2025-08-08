@@ -53,7 +53,7 @@ The Service Level Agreement says it is not critical to have downtime.
 <img width="2848" height="3272" alt="image" src="https://github.com/user-attachments/assets/9f7f4304-2d92-4a9f-818a-81da9095ec40" />
 
 ## Technical Diagram
-<img width="708" height="408" alt="image" src="https://github.com/user-attachments/assets/205fda07-b399-43a3-bdc5-81b81300427c" />
+<img width="2944" height="3080" alt="image" src="https://github.com/user-attachments/assets/63d60c66-3747-40b0-8cfa-d84f90dc874c" />
 
 # Tech stack
 Technology stack would be .NET and SQL Server and React.
